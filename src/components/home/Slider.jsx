@@ -29,7 +29,7 @@ const Slider = () => {
               />
             </div>
             <div className="absolute inset-0 w-full h-full bg-black/50">
-              <div className="one-container h-[70vh] flex flex-col items-center justify-center">
+              <div className="new-container h-[70vh] flex flex-col items-center justify-center">
                 <h1 className="text-white text-xl font-medium capitalize">
                   {cat.name}
                 </h1>

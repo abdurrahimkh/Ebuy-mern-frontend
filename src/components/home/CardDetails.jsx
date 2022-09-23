@@ -1,4 +1,5 @@
 import currency from "currency-formatter";
+import h2p from "html2plaintext";
 import htmlParser from "html-react-parser";
 import DetailsImage from "./DetailsImage";
 import Quantity from "./Quantity";
@@ -17,6 +18,8 @@ const CardDetails = ({ product }) => {
     }
   };
 
+  let desc = h2p(product.description);
+  desc = htmlParser(desc);
   const percentage = product.discount / 100;
   const discountPrice = product.price - product.price * percentage;
   return (
@@ -87,12 +90,10 @@ const CardDetails = ({ product }) => {
           </div>
           <button className="btn btn-indigo ">add to cart</button>
         </div>
-        <h3 className="text-base font-medium capitalize text-gray-600 mb-2 mt-3">
+        <h3 className="description text-base font-medium capitalize text-gray-600 mb-2 mt-3">
           description
         </h3>
-        <div className="mt-4 leading-[27px] description ">
-          {htmlParser(product.description)}
-        </div>
+        <div className="mt-4 leading-[27px]">{desc}</div>
       </div>
     </div>
   );
