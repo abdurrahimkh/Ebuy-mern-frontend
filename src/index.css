@@ -1,0 +1,15 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/styles.css";
+@import "./tailwindcss/buttons.css";
+@import "./tailwindcss/form.css";
+@import "./tailwindcss/nav.css";
+@import "./tailwindcss/header.css";
+@import "tailwindcss/utilities";
+
+.ql-toolbar.ql-snow {
+  @apply border-none bg-gray-900;
+}
+.ql-container.ql-snow {
+  @apply border-none bg-gray-700;
+}

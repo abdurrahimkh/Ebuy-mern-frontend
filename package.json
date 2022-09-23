@@ -1,0 +1,36 @@
+{
+  "name": "mern-eccomerce",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "client": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.8.5",
+    "bootstrap-icons": "^1.9.1",
+    "currency-formatter": "^1.5.9",
+    "framer-motion": "^6.5.1",
+    "html-react-parser": "^3.0.4",
+    "html2plaintext": "^2.1.4",
+    "jwt-decode": "^3.1.2",
+    "postcss": "^8.4.16",
+    "postcss-import": "^15.0.0",
+    "react": "^17.0.2",
+    "react-color": "^2.19.3",
+    "react-dom": "^17.0.2",
+    "react-hot-toast": "^2.4.0",
+    "react-quill": "^2.0.0",
+    "react-redux": "^8.0.4",
+    "react-router-dom": "^6.4.1",
+    "swiper": "^8.4.2",
+    "tailwindcss": "^3.1.8",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^1.0.7",
+    "autoprefixer": "^10.4.12",
+    "vite": "^2.8.0"
+  }
+}
