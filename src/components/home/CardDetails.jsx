@@ -8,6 +8,12 @@ import { motion } from "framer-motion";
 
 const CardDetails = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
+  const [sizeState, setSizeState] = useState(
+    product?.sizes?.length > 0 && product.sizes[0].name
+  );
+  const [colorState, setColorState] = useState(
+    product?.colors?.length > 0 && product?.colors[0].color
+  );
 
   const inc = () => {
     setQuantity(quantity + 1);
@@ -60,8 +66,18 @@ const CardDetails = ({ product }) => {
             </h3>
             <div className="flex flex-wrap -mx-1">
               {product.sizes.map(size => (
-                <div className="p-2 m-1 border border-gray-300 rounded cursor-pointer">
-                  <span className="text-sm uppercase text-gray-900 font-semibold">
+                <div
+                  key={size.name}
+                  className={`p-2 m-1 border border-gray-300 rounded cursor-pointer ${
+                    sizeState === size.name && "bg-indigo-600"
+                  }`}
+                  onClick={() => setSizeState(size.name)}
+                >
+                  <span
+                    className={`text-sm uppercase  font-semibold ${
+                      sizeState === size.name ? "text-white" : "text-gray-900"
+                    }`}
+                  >
                     {size.name}
                   </span>
                 </div>
@@ -77,13 +93,18 @@ const CardDetails = ({ product }) => {
             <div className="flex flex-wrap -mx-1">
               {product.colors.map(color => (
                 <div
-                  key={color.name}
+                  key={color.color}
                   className="border border-gray-300 rounded cursor-pointer m-1 p-1"
+                  onClick={() => setColorState(color.color)}
                 >
                   <span
-                    className="block min-w-[30px] min-h-[30px] rounded"
+                    className="flex items-center justify-center min-w-[30px] min-h-[30px] rounded"
                     style={{ backgroundColor: color.color }}
-                  ></span>
+                  >
+                    {colorState === color.color && (
+                      <i className="bi bi-check-lg text-white"></i>
+                    )}
+                  </span>
                 </div>
               ))}
             </div>
