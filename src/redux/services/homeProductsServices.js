@@ -15,9 +15,17 @@ const homeProducts = createApi({
           };
         },
       }),
+      searchProducts: builder.query({
+        query: params => {
+          return {
+            url: `search-products/${params.keyword}/${params.page}`,
+            method: "GET",
+          };
+        },
+      }),
     };
   },
 });
 
-export const { useCatProductsQuery } = homeProducts;
+export const { useCatProductsQuery, useSearchProductsQuery } = homeProducts;
 export default homeProducts;

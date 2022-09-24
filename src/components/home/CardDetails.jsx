@@ -4,6 +4,7 @@ import htmlParser from "html-react-parser";
 import DetailsImage from "./DetailsImage";
 import Quantity from "./Quantity";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 const CardDetails = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
@@ -23,7 +24,11 @@ const CardDetails = ({ product }) => {
   const percentage = product.discount / 100;
   const discountPrice = product.price - product.price * percentage;
   return (
-    <div className="flex flex-wrap -mx-5">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="flex flex-wrap -mx-5"
+    >
       <div className="w-full md:w-6/12 p-5 order-2 md:order-1">
         <div className="flex flex-wrap -mx-1">
           <DetailsImage image={product.image1} />
@@ -95,7 +100,7 @@ const CardDetails = ({ product }) => {
         </h3>
         <div className="mt-4 leading-[27px]">{desc}</div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
