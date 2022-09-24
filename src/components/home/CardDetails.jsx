@@ -5,6 +5,9 @@ import DetailsImage from "./DetailsImage";
 import Quantity from "./Quantity";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import toast, { Toaster } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { addItemToCart } from "../../redux/reducers/cartReducer";
 
 const CardDetails = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
@@ -15,6 +18,8 @@ const CardDetails = ({ product }) => {
     product?.colors?.length > 0 && product?.colors[0].color
   );
 
+  const dispatch = useDispatch();
+
   const inc = () => {
     setQuantity(quantity + 1);
   };
@@ -22,6 +27,31 @@ const CardDetails = ({ product }) => {
   const dec = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
+    }
+  };
+
+  const addToCart = () => {
+    const {
+      ["colors"]: colors,
+      ["sizes"]: sizes,
+      ["createdAt"]: createdAt,
+      ["updatedAt"]: updatedAt,
+      ...rest
+    } = product;
+    rest["size"] = sizeState;
+    rest["color"] = colorState;
+    rest["quantity"] = quantity;
+
+    const cart = localStorage.getItem("cart");
+    const cartItems = cart ? JSON.parse(cart) : [];
+    const checkItem = cartItems.find(item => item._id === rest._id);
+    if (!checkItem) {
+      dispatch(addItemToCart(rest));
+      cartItems.push(rest);
+      localStorage.setItem("cart", JSON.stringify(cartItems));
+    } else {
+      toast.error(`${rest.title} is already in cart`);
+      return;
     }
   };
 
@@ -35,6 +65,7 @@ const CardDetails = ({ product }) => {
       animate={{ opacity: 1 }}
       className="flex flex-wrap -mx-5"
     >
+      <Toaster />
       <div className="w-full md:w-6/12 p-5 order-2 md:order-1">
         <div className="flex flex-wrap -mx-1">
           <DetailsImage image={product.image1} />
@@ -114,7 +145,9 @@ const CardDetails = ({ product }) => {
           <div className="w-full sm:w-6/12 p-3 ">
             <Quantity quantity={quantity} inc={inc} dec={dec} />
           </div>
-          <button className="btn btn-indigo ">add to cart</button>
+          <button onClick={addToCart} className="btn btn-indigo ">
+            add to cart
+          </button>
         </div>
         <h3 className="description text-base font-medium capitalize text-gray-600 mb-2 mt-3">
           description
