@@ -5,6 +5,7 @@
 @import "./tailwindcss/form.css";
 @import "./tailwindcss/nav.css";
 @import "./tailwindcss/header.css";
+@import "./tailwindcss/table.css";
 @import "tailwindcss/utilities";
 
 .ql-toolbar.ql-snow {

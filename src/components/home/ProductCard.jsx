@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import currencyFormatter from "currency-formatter";
 import { motion } from "framer-motion";
+import { discount } from "../../utils/discount";
 
 const ProductCard = ({ product }) => {
-  const percentage = product.discount / 100;
-  const discountPrice = product.price - product.price * percentage;
+  const discountPrice = discount(product.price, product.discount);
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -23,11 +23,13 @@ const ProductCard = ({ product }) => {
           {product.title}
         </p>
         <div className="flex justify-between">
-          <span className="text-lg font-medium text-black">
-            {currencyFormatter.format(discountPrice, {
-              code: "USD",
-            })}
-          </span>
+          {product.discount > 0 && (
+            <span className="text-lg font-medium text-black">
+              {currencyFormatter.format(discountPrice, {
+                code: "USD",
+              })}
+            </span>
+          )}
           <span
             className="text-lg font-medium"
             style={{

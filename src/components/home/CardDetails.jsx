@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import toast, { Toaster } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { addItemToCart } from "../../redux/reducers/cartReducer";
+import { discount } from "../../utils/discount";
 
 const CardDetails = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
@@ -57,8 +58,8 @@ const CardDetails = ({ product }) => {
 
   let desc = h2p(product.description);
   desc = htmlParser(desc);
-  const percentage = product.discount / 100;
-  const discountPrice = product.price - product.price * percentage;
+
+  const discountPrice = discount(product.price, product.discount);
   return (
     <motion.div
       initial={{ opacity: 0 }}

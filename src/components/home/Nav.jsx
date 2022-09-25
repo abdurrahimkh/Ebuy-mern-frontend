@@ -7,6 +7,7 @@ import { toggleSearchBar } from "../../redux/reducers/globalReducer";
 const Nav = () => {
   const { userToken, user } = useSelector(state => state.authReducer);
   const { searchBar } = useSelector(state => state.globalReducer);
+  const { items, total } = useSelector(state => state.cartReducer);
 
   const dispatch = useDispatch();
 
@@ -38,7 +39,7 @@ const Nav = () => {
                 <Link to="/cart">
                   <i className="bi bi-bag text-xl"></i>
                   <span className="nav-circle absolute -top-2 -right-3">
-                    10
+                    {items}
                   </span>
                 </Link>
               </li>
