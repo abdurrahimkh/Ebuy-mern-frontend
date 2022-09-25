@@ -9,7 +9,7 @@ const Quantity = ({ quantity, inc, dec, theme }) => {
       >
         <i className="bi bi-dash"></i>
       </span>
-      <span className="flex-1 border flex items-center justify-center font-medium border-r-0">
+      <span className="flex-1 border px-5 flex items-center justify-center font-medium border-r-0">
         {quantity}
       </span>
       <span
