@@ -8,10 +8,13 @@ import {
   incQuantity,
   removeItem,
 } from "../../redux/reducers/cartReducer";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useSendPaymentMutation } from "../../redux/services/paymentService";
+import { useEffect } from "react";
 
 const Cart = () => {
   const { cart, total } = useSelector(state => state.cartReducer);
+  const { userToken, user } = useSelector(state => state.authReducer);
   const dispatch = useDispatch();
 
   const inc = id => {
@@ -27,6 +30,24 @@ const Cart = () => {
       dispatch(removeItem(id));
     }
   };
+
+  const navigate = useNavigate();
+  const [doPayment, response] = useSendPaymentMutation();
+  console.log("Payment Response", response);
+  const pay = () => {
+    if (userToken) {
+      doPayment({ cart, id: user.id });
+    } else {
+      navigate("/login");
+    }
+  };
+
+  useEffect(() => {
+    if (response?.isSuccess) {
+      window.location.href = response?.data?.url;
+    }
+  }, [response]);
+
   return (
     <>
       <Nav />
@@ -112,12 +133,12 @@ const Cart = () => {
                 <span className="text-lg font-semibold text-indigo-800 mr-10 rounded-md">
                   {currency.format(total, { code: "USD" })}
                 </span>
-                <Link
-                  to="/"
+                <button
+                  onClick={pay}
                   className="btn bg-indigo-600 text-sm font-medium py-2.5"
                 >
-                  Checkout
-                </Link>
+                  {response.isLoading ? "Loading" : "checkout"}
+                </button>
               </div>
             </div>
           </>

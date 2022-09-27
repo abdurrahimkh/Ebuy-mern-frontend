@@ -6,6 +6,7 @@ import globalReducer from "./reducers/globalReducer";
 import productService from "./services/productService";
 import homeProducts from "./services/homeProductsServices";
 import cartReducer from "./reducers/cartReducer";
+import paymentService from "./services/paymentService";
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
     [categoryService.reducerPath]: categoryService.reducer,
     [productService.reducerPath]: productService.reducer,
     [homeProducts.reducerPath]: homeProducts.reducer,
+    [paymentService.reducerPath]: paymentService.reducer,
     authReducer: authReducer,
     cartReducer: cartReducer,
     globalReducer: globalReducer,
@@ -22,5 +24,6 @@ export const store = configureStore({
       categoryService.middleware,
       productService.middleware,
       homeProducts.middleware,
+      paymentService.middleware,
     ]),
 });
