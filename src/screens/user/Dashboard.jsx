@@ -1,15 +1,38 @@
 import Nav from "../../components/home/Nav";
 import Header from "../../components/home/Header";
 import AccountList from "../../components/home/AccountList";
-import { useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useVerifyPaymentQuery } from "../../redux/services/paymentService";
+import { useEffect } from "react";
+import toast, { Toaster } from "react-hot-toast";
+import { emptyCart } from "../../redux/reducers/cartReducer";
 
 const Dashboard = () => {
   const { user } = useSelector(state => state.authReducer);
   const [params] = useSearchParams();
+  const id = params.get("session_id");
+
+  const { data, isSuccess } = useVerifyPaymentQuery(id, {
+    skip: id ? false : true,
+  });
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (isSuccess) {
+      localStorage.removeItem("cart");
+      toast.success(data.msg);
+      dispatch(emptyCart());
+      navigate("/user");
+    }
+  }, [isSuccess]);
+
   return (
     <>
       <Nav />
+      <Toaster position="top-right" />
       <div className="mt-[70px]">
         <Header>my account</Header>
       </div>
