@@ -2,9 +2,11 @@ import Nav from "../../components/home/Nav";
 import Header from "../../components/home/Header";
 import AccountList from "../../components/home/AccountList";
 import { useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
 
 const Dashboard = () => {
   const { user } = useSelector(state => state.authReducer);
+  const [params] = useSearchParams();
   return (
     <>
       <Nav />
